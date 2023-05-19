@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Context } from "../main";
 import { authRoutes, publicRoutes } from "../utils/routes";
+import NavbarNested from "./Navbar/Navbar";
 
 const AppRouter = () => {
     const { UStore } = useContext(Context);
@@ -19,7 +20,7 @@ const AppRouter = () => {
 
     return (
         <Flex>
-            {/* {(UStore.isAuth && (location.pathname !== '/login' && location.pathname !== '/registration')) ? <NavbarMinimal/> : <></>}*/}
+            {(UStore.isAuth && (location.pathname !== '/login' && location.pathname !== '/registration')) ? <NavbarNested/> : <></>}
             <Stack spacing="0rem">
                 <Routes>
                     {UStore.isAuth && authRoutes.map(({path, Component}) => 

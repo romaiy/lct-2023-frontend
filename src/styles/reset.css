@@ -101,10 +101,12 @@ legend {
 	display: block;
 }
 
-#nav a.active, a.hover {
-    background-color: #FFF1ED;
+#nav a.active, a.hover div{
+    background: #FFF5F5;
 	border-radius: 8px;
 }
+
+
 
 html {
 	width: 100%;

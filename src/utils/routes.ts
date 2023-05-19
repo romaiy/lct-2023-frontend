@@ -1,12 +1,28 @@
 import AuthPage from "../pages/AuthPage"
+import DatabasePage from "../pages/DatabasePage"
+import HistoryPage from "../pages/HistoryPage"
 import HomePage from "../pages/HomePage"
-import { HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "./const"
+import { DATABASE_ROUT, HISTORY_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "./const"
+import { IconList, IconHistory, IconDeviceAnalytics } from '@tabler/icons-react';
 
 export const authRoutes = [
     {
         path: HOME_ROUTE,
         Component: HomePage,
-        title: 'О проекте',
+        title: 'Анализатор',
+        icon: IconDeviceAnalytics
+    },
+    {
+        path: HISTORY_ROUTE,
+        Component: HistoryPage,
+        title: 'История анализов',
+        icon: IconHistory
+    },
+    {
+        path: DATABASE_ROUT,
+        Component: DatabasePage,
+        title: 'База данных',
+        icon: IconList
     },
 ]
 
@@ -14,11 +30,11 @@ export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: AuthPage,
-        title: 'afs1',
+        title: 'login',
     },
     {
         path: REGISTRATION_ROUTE,
         Component: AuthPage,
-        title: '1sadf',
+        title: 'registration',
     },
 ]
