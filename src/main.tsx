@@ -25,6 +25,7 @@ root.render(
       withNormalizeCSS
       theme={{
         fontFamily: 'Commissioner, sans-serif',
+        fontSizes: { xs: '9.6px', sm: '12px', md: '14.4px', lg: '16px', xl: '19.2px'},
         headings: {
           fontWeight: 600,
           sizes: {

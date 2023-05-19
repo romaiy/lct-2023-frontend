@@ -1,4 +1,5 @@
 import { Flex, Stack } from "@mantine/core";
+import { observer } from "mobx-react-lite";
 import { useContext } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Context } from "../main";
@@ -10,6 +11,10 @@ const AppRouter = () => {
 
     if (UStore.isAuth && (location.pathname === '/login' || location.pathname === '/registration')) {
         return <Navigate to='/' replace/>
+    };
+
+    if (!UStore.isAuth && (location.pathname === '/')) {
+        return <Navigate to='/login' replace/>
     };
 
     return (
@@ -29,4 +34,4 @@ const AppRouter = () => {
     );
 };
 
-export default AppRouter;
+export default observer(AppRouter);

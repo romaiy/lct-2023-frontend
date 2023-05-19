@@ -1,4 +1,8 @@
 /* Reset and base styles  */
+body {
+	background: #1E1E1E;
+}
+
 * {
 	padding: 0px;
 	margin: 0px;
@@ -102,18 +106,8 @@ legend {
 	border-radius: 8px;
 }
 
-#garden a.active, a.hover {
-    background-color: #FFF1ED;
-	border-radius: 16px;
-	color: #F4714B;
-}
-
 html {
 	width: 100%;
     height: 100%;
 	overflow-x: hidden;
-}
-
-body {
-	background: #1E1E1E;
 }

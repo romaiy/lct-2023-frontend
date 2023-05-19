@@ -1,23 +1,43 @@
 import { Context } from "../../main";
-import { ActionIcon, Button, Card, Container, Flex, Group, Image, PasswordInput, Space, Stack, Text, TextInput, ThemeIcon, Title } from "@mantine/core";
+import { Button, createStyles, Flex, Image, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { observer } from "mobx-react-lite";
 import { FC, useContext, useState } from "react";
+import loginSmall from '../../assets/login-img-small.png';
+import loginBig from '../../assets/login-img-big.png';
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
+const useStyles = createStyles((_theme, location: string) => ({
+    wrapper: {
+        width: '100vw',
+        height: '100vh',
+        background: '#1F1F1F'
+    },
+    card: {
+        width: "964px",
+        height: location==='/login' ? '498px' : '594px',
+        borderRadius: '32px'
+    },
+    form: {
+        background: 'white',
+        width: '464px',
+        borderRadius: ' 0px 32px 32px 0px',
+        padding: '56px 32px'
+    },
+    input: {
+        label: {
+            marginBottom: '6px',
+        }
+    }
+}));
 
 const AuthPage: FC = () => {
     const { UStore } = useContext(Context);
     const location = useLocation();
+    const { classes } = useStyles(location.pathname);
     const navigate = useNavigate();
-    const [username, setUsername] = useState<string>('Kfk fkf');
+    const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [color, setColor] = useState<string>('gray.9');
-
-    let backgroundStyle = {
-        backdropFilter: 'blur(7.5px)',
-        width: '100vw',
-        height: '100vh',
-    };
 
     const handleAuth = async () => {
         if (location.pathname === '/login') { 
@@ -37,79 +57,83 @@ const AuthPage: FC = () => {
     };
 
     return(
-        <div>
-        <Flex style={backgroundStyle} align="center" justify="center">
-            <Container size='35rem' >
-                <Card padding="2rem 1.5rem 2.5rem" radius="1.875rem">
-                    <Flex gap="2rem" direction="column">
-                        <Card padding="0 2.5rem">
-                        <Flex gap="3rem" direction="column">
-                            <Group position="center" spacing="0.5rem">
-                                <Title size="h2">{location.pathname === '/login' ? 'Вход' : 'Регистрация'}</Title>
-                            </Group>
-                            <Stack justify="center">
-                                <TextInput
-                                    style={{width: '25rem'}}
-                                    placeholder="aaa@yandex.ru"
-                                    label="Email"
-                                    size="md"
-                                    withAsterisk
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    type="email"
-                                    radius="0.5rem"
-                                />
-                                <PasswordInput
-                                    style={{width: '25rem'}}
-                                    placeholder="*******"
-                                    label="Пароль"
-                                    size="md"
-                                    withAsterisk
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                    radius="0.5rem"
-                                />
-                                <Space h="0.5rem"/>
-                                <Button 
-                                    color="orange.5" 
-                                    radius="lg" 
-                                    size="md"
-                                    style={{
-                                        width: '25rem',
-                                        fontWeight: '600',
-                                        fontSize: '16px',
-                                        lineHeight: '18px',
-                                        height: '57px',
-                                    }}
-                                    disabled={(email && password) ? false : true}
-                                    onClick={handleAuth}
-                                >
-                                    {location.pathname === '/login' ? "Вход" : 'Регистрация'}
-                                </Button>
-                            </Stack>
-                            <Flex justify="center" gap="0.25rem">
-                                <Text size="p3" fw={500} c="gray.2">
-                                    {location.pathname === '/login' ? "Нет аккаунта?" : 'Есть аккаунт?'}
+        <Flex className={classes.wrapper} align="center" justify="center">
+            <Flex className={classes.card}>
+                <Image 
+                    radius='32px 0px 0px 32px' 
+                    width={500} 
+                    height={location.pathname === '/login' ? 498 : 594} 
+                    src={location.pathname === '/login' ? loginSmall : loginBig}
+                />
+                <Stack spacing={56} className={classes.form}>
+                    <Title size="h3">{location.pathname === '/login' ? 'Логин' : 'Регистрация'}</Title>
+                    <Stack spacing={32}>
+                        <Stack spacing={16}>
+                            <TextInput
+                                style={location.pathname === '/login' ? {display: 'none'} : {}}
+                                placeholder="Иванов Иван"
+                                label="Фамилия Имя"
+                                lh={'24px'}
+                                size="lg"
+                                withAsterisk
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                type="text"
+                                radius="0.5rem"
+                                className={classes.input}
+                            />
+                            <TextInput
+                                placeholder="aaa@yandex.ru"
+                                label="Email"
+                                lh={'24px'}
+                                size="lg"
+                                withAsterisk
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                type="email"
+                                radius="0.5rem"
+                                className={classes.input}
+                            />
+                            <PasswordInput
+                                placeholder="Пароль"
+                                label="Пароль"
+                                lh={'24px'}
+                                size="lg"
+                                withAsterisk
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                radius="0.5rem"
+                                className={classes.input}
+                            />
+                            <Button 
+                                fz='lg' 
+                                radius={15} 
+                                w={209} h={56} 
+                                color="red.7"
+                                disabled={
+                                    location.pathname === '/login'  
+                                    ? (email && password) ? false : true
+                                    : (email && password && username) ? false : true
+                                }
+                                onClick={handleAuth}
+                            >
+                                {location.pathname === '/login' ? 'Вход' : 'Регистрация'}
+                            </Button>
+                        </Stack>
+                        <Flex gap={4}>
+                            <Text color="gray.9" lh={'24px'} size="lg">
+                                {location.pathname === '/login' ? 'Нет аккаунта?' : 'Есть аккаунт?'}
+                            </Text>
+                            <NavLink to={location.pathname === '/login' ? '/registration' : '/login'}>
+                                <Text color="red.6" lh={'24px'} size="lg">
+                                    {location.pathname === '/login' ? 'Зарегистрироваться' : 'Войти'}
                                 </Text>
-                                <NavLink to={location.pathname === '/login' ? "/registration" : '/login'}>
-                                    <Text 
-                                        onMouseEnter={() => setColor('orange.4')}
-                                        onMouseLeave={() => setColor('gray.9')}
-                                        size="p3" 
-                                        fw={600} 
-                                        c={color}
-                                    >
-                                        {location.pathname === '/login' ? "Регистрация" : 'Войти'}
-                                    </Text>
-                                </NavLink>
-                            </Flex>
+                            </NavLink>
                         </Flex>
-                        </Card>
-                    </Flex>
-            </Card>
-            </Container>
+                    </Stack>
+                </Stack>
+            </Flex>
         </Flex>
-        </div>
     );
 };
 

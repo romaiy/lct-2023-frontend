@@ -1,4 +1,5 @@
 import { Loader, Stack } from "@mantine/core";
+import { observer } from "mobx-react-lite";
 import { useContext, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom"
 import AppRouter from "./components/AppRouter"
@@ -29,4 +30,4 @@ const App = () => {
   )
 }
 
-export default App
+export default observer(App);
