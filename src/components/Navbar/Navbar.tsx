@@ -4,7 +4,7 @@ import NavbarHelp from './NavbarHelp';
 import NavbarLinksGroup from './NavbarLinksGroup';
 
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
     navbar: {
         borderRight: '1px solid #E9ECEF', 
         position: 'sticky',

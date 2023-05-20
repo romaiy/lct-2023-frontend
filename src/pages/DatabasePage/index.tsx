@@ -1,10 +1,14 @@
 import { Text } from "@mantine/core";
 import { FC } from "react";
+import Wrapper from "../../components/Wrappers/Wrapper";
 
 const DatabasePage: FC = () => {
     
     return (
-        <Text size="lg">DatabasePage</Text>
+        <Wrapper>
+            <Text size="lg">DatabasePage</Text>
+            <></>
+        </Wrapper>
     );
 }
 

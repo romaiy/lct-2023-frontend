@@ -24,6 +24,20 @@ root.render(
       withGlobalStyles
       withNormalizeCSS
       theme={{
+        globalStyles: (_theme) => ({
+          '.input': {
+            input: {
+              background: '#F8F9FA'
+            },
+            label: {
+                marginBottom: '6px',
+            },
+            button: {
+              background: '#F8F9FA'
+            }
+          }
+        }),
+        defaultRadius: '0.5rem',
         fontFamily: 'Commissioner, sans-serif',
         fontSizes: { xs: '9.6px', sm: '12px', md: '14.4px', lg: '16px', xl: '19.2px'},
         headings: {

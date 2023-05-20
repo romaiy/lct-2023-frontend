@@ -14,8 +14,10 @@ const NavbarHeader = () => {
                 <IconHome stroke="1.5" color={theme.colors.red[5]}/> 
             </Avatar>
             <Stack w={184} spacing={4}>
-                <Title size="h5">{UStore.user.username}</Title>
-                <Text lh={'24px'} size="lg" color="gray.5">Аналитик</Text>
+                <Title color="gray.9" size="h5">{UStore.user.username}</Title>
+                <Text lh={'24px'} size="lg" color="gray.5">
+                    {UStore.user.role === 'user' ? 'Аналитик' : 'Старший аналитик'}
+                </Text>
             </Stack>
             <IconLogout 
                 style={{marginLeft: 'auto', cursor: 'pointer'}} 

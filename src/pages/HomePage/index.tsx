@@ -1,14 +1,19 @@
-import { Text } from "@mantine/core";
-import { observer } from "mobx-react-lite";
-import { FC, useContext } from "react";
-import { Context } from "../../main";
+import { Stack } from "@mantine/core";
+import { FC } from "react";
+import Wrapper from "../../components/Wrappers/Wrapper";
+import AnalysisTypes from "./components/AnalysisTypes";
 
-const AuthPage: FC = () => {
-    const { UStore } = useContext(Context);
+const HomePage: FC = () => {
     
     return (
-        <Text style={{cursor: 'pointer'}} onClick={() => UStore.logout()} size="lg">123</Text>
+        
+        <Wrapper>
+            <Stack>
+                <AnalysisTypes/>
+            </Stack>
+            <></>
+        </Wrapper>
     );
 }
 
-export default observer(AuthPage);
+export default HomePage;

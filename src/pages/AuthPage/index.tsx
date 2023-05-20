@@ -1,5 +1,5 @@
 import { Context } from "../../main";
-import { Button, createStyles, Flex, Image, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Button, createStyles, Flex, Image, PasswordInput, Radio, Stack, Text, TextInput, Title } from "@mantine/core";
 import { observer } from "mobx-react-lite";
 import { FC, useContext, useState } from "react";
 import loginSmall from '../../assets/login-img-small.png';
@@ -14,7 +14,7 @@ const useStyles = createStyles((_theme, location: string) => ({
     },
     card: {
         width: "964px",
-        height: location==='/login' ? '498px' : '594px',
+        height: location==='/login' ? '538px' : '594px',
         borderRadius: '32px'
     },
     form: {
@@ -27,6 +27,12 @@ const useStyles = createStyles((_theme, location: string) => ({
         label: {
             marginBottom: '6px',
         }
+    },
+    radio: {
+        label: {
+            paddingLeft: '8px',
+            fontSize: '16px'
+        }
     }
 }));
 
@@ -38,10 +44,11 @@ const AuthPage: FC = () => {
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [role, setRole] = useState<string>('');
 
     const handleAuth = async () => {
         if (location.pathname === '/login') { 
-            await UStore.login(email, password)
+            await UStore.login(email, password, role)
         } else {
             await UStore.registration(username, email, password)
         }
@@ -62,13 +69,38 @@ const AuthPage: FC = () => {
                 <Image 
                     radius='32px 0px 0px 32px' 
                     width={500} 
-                    height={location.pathname === '/login' ? 498 : 594} 
+                    height={location.pathname === '/login' ? 538 : 594} 
                     src={location.pathname === '/login' ? loginSmall : loginBig}
                 />
                 <Stack spacing={56} className={classes.form}>
                     <Title size="h3">{location.pathname === '/login' ? 'Логин' : 'Регистрация'}</Title>
                     <Stack spacing={32}>
                         <Stack spacing={16}>
+                            {location.pathname === '/login' ? 
+                                <Radio.Group
+                                    name="favoriteFramework"
+                                    value={role}
+                                    onChange={setRole}
+                                >
+                                    <Flex gap={24}>
+                                        <Radio
+                                            className={classes.radio}
+                                            size="md" 
+                                            color="red.7" 
+                                            value="user" 
+                                            label="Аналитик"
+                                        />
+                                        <Radio
+                                            className={classes.radio}
+                                            size="md" 
+                                            color="red.7"
+                                            value="admin" 
+                                            label="Старший аналитик"
+                                            style={{cursor: 'pointer'}}
+                                        />
+                                    </Flex>
+                                </Radio.Group>
+                            : <></>}
                             <TextInput
                                 style={location.pathname === '/login' ? {display: 'none'} : {}}
                                 placeholder="Иванов Иван"
@@ -110,9 +142,10 @@ const AuthPage: FC = () => {
                                 radius={15} 
                                 w={209} h={56} 
                                 color="red.7"
+                                fw={400}
                                 disabled={
                                     location.pathname === '/login'  
-                                    ? (email && password) ? false : true
+                                    ? (email && password && role) ? false : true
                                     : (email && password && username) ? false : true
                                 }
                                 onClick={handleAuth}

@@ -1,10 +1,14 @@
 import { Text } from "@mantine/core";
 import { FC } from "react";
+import Wrapper from "../../components/Wrappers/Wrapper";
 
 const HistoryPage: FC = () => {
     
     return (
-        <Text size="lg">HistoryPage</Text>
+        <Wrapper>
+            <Text size="lg">HistoryPage</Text>
+            <></>
+        </Wrapper>
     );
 }
 

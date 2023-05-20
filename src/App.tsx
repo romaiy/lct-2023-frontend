@@ -18,7 +18,7 @@ const App = () => {
   if (UStore.isLoading) {
     return (
       <Stack h={"100vh"} align="center" justify="center">
-        <Loader size="xl" color="orange.5"/>
+        <Loader size="xl" color="red.5"/>
       </Stack>
     );
   }

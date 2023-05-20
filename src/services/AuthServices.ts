@@ -3,8 +3,8 @@ import $api from "../http";
 import { AuthResponse } from "../models/response/AuthResponse";
 
 export default class AuthServices {
-    static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/users/login', {email, password})
+    static async login(email: string, password: string, role: string): Promise<AxiosResponse<AuthResponse>> {
+        return $api.post<AuthResponse>('/users/login', {email, password, role})
     };
 
     static async registration(username: string, email: string, password: string): Promise<AxiosResponse<AuthResponse>> {

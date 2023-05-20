@@ -26,9 +26,9 @@ export default class UserStore {
         this.isLoading = bool;
     }
 
-    async login(email: string, password: string) {
+    async login(email: string, password: string, role: string) {
         try {
-            const response = await AuthServices.login(email, password);
+            const response = await AuthServices.login(email, password, role);
             localStorage.setItem('token', response.data.accessToken);
             localStorage.setItem('rtoken', response.data.refreshToken);
             this.setAuth(true);
@@ -66,7 +66,7 @@ export default class UserStore {
     async checkAuth() {
         this.setLoading(true);
         try {
-            const response = await axios.post<AuthResponse>(`${API_URL}/users/refresh`, {refreshToken: `${localStorage.getItem('rtoken')}`} );
+            const response = await axios.post<AuthResponse>(`${API_URL}/users/refresh`, {refreshToken: `${localStorage.getItem('rtoken')}`, } );
             console.log(response.data)
             localStorage.setItem('token', response.data.accessToken);
             localStorage.setItem('rtoken', response.data.refreshToken);
