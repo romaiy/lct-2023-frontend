@@ -54,12 +54,16 @@ const NavbarLink = ({icon: Icon, path, title}: LinksProps) => {
 
 const NavbarLinksGroup = () => {
 
-    const links = authRoutes.map((link) => (
-        <NavbarLink
-            {...link}
-            key={link.title}
-        />
-    ));
+    const links = authRoutes.map((link, index) => {
+        if (index < 3) {
+            return (
+                <NavbarLink
+                    {...link}
+                    key={link.title}
+                />
+            );
+        }
+    });
 
     return (
         <nav id="nav">

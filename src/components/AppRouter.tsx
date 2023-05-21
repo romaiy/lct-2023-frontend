@@ -1,15 +1,27 @@
 import { Flex, Stack } from "@mantine/core";
 import { observer } from "mobx-react-lite";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Context } from "../main";
+import { CURRENT_ANALYSIS_ROUT } from "../utils/const";
 import { authRoutes, publicRoutes } from "../utils/routes";
 import Header from "./Header/Header";
 import NavbarNested from "./Navbar/Navbar";
 
 const AppRouter = () => {
-    const { UStore } = useContext(Context);
+    const { UStore, AStore } = useContext(Context);
     const location = useLocation();
+    const [currentRoute, setCurrentRoute] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
+            setCurrentRoute(true);
+        };
+        if (currentRoute && location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
+            setCurrentRoute(false);
+            AStore.setCurrentBaseAnalysis(false);
+        };
+    }, [location])
 
     if (UStore.isAuth && (location.pathname === '/login' || location.pathname === '/registration')) {
         return <Navigate to='/' replace/>

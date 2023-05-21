@@ -1,69 +1,66 @@
-import { Autocomplete, Button, createStyles, Flex, Stack } from "@mantine/core";
-import { DatePickerInput } from "@mantine/dates";
-import { useState } from "react";
+import { Button, Flex, Stack } from "@mantine/core";
+import { observer } from "mobx-react-lite";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../../main";
+import AnalysisInput from "./AnalysisInput";
 import AnalysisOrigin from "./AnalysisOrigin";
 
-const useStyles = createStyles((_theme) => ({
-    job: {
-        input: {
-            background: '#F8F9FA'
-        },
-        label: {
-            marginBottom: '4px',
-        }
-    },
-    wrapper: {
-        marginTop: '24px'
-    }
-}));
+
 
 const AnalysisForm = () => {
-    const { classes } = useStyles();
-    const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
+    const { AStore } = useContext(Context);
+    
+    const [date, setDate] = useState<[Date | null, Date | null]>([null, null]);
+    const [object, setObject] = useState<string>('');
+    const [work, setWork] = useState<string>('');
+    const [origin, setOrigin] = useState<string>('database');
+    const [url, setUrl] = useState<string>('');
+
+    const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (origin === 'database') {
+            if (date && object && work) {
+                setBtnDisabled(false);
+            } else {
+                setBtnDisabled(true);
+            }
+        } else if (origin === 'url') {
+            if (date && object && work && url) {
+                setBtnDisabled(false);
+            } else {
+                setBtnDisabled(true);
+            }
+        } 
+    }, origin==='url' ? [work, date, object, url] : 
+    [work, date, object, origin])
+
+    const handlePost = async () => {
+        if (origin === 'database') {
+            AStore.smartAnalysisDatabase(object, date, work);
+        } 
+    };
 
     return (
         <Flex gap={24} align="flex-end">
             <Stack spacing={24}>
-            <Flex className={classes.wrapper} gap={16}>
-                <Autocomplete
-                    className='input'
-                    w={443.5}
-                    lh={'24px'}
-                    size="lg"
-                    label="Категория объекта"
-                    limit={6}
-                    data={['React', 'Angular', 'Svelte', 'Vue']}
-                    placeholder="Двор"
-                />
-                <DatePickerInput
-                    valueFormat="DD.MM.YYYY"
-                    className='input'
-                    w={443.5}
-                    size="lg"
-                    lh={'24px'}
-                    type="range"
-                    label="Отчетный период"
-                    value={value}
-                    onChange={setValue}
-                />
-            </Flex>
-            <Autocomplete
-                className={classes.job}
-                label="Вид работ"
-                placeholder="Проверка изоляции проводов"
-                size="lg"
-                w={903}
-                lh={'24px'}
-                limit={2}
-                data={['React', 'Angular', 'Svelte', 'Vue']}
+            <AnalysisInput 
+                work={work}
+                setWork={setWork}
+                object={object}
+                setObject={setObject}
+                date={date}
+                setDate={setDate}
             />
-            <AnalysisOrigin/>
+            <AnalysisOrigin url={url} setUrl={setUrl} setOrigin={setOrigin} origin={origin}/>
             </Stack>
             <Button
                 fz='lg'
                 w={164} h={48}
                 color="red.7"
                 fw={400}
+                disabled={btnDisabled}
+                onClick={handlePost}
             >
                 Начать
             </Button>
@@ -71,4 +68,4 @@ const AnalysisForm = () => {
     );
 };
 
-export default AnalysisForm;
+export default observer(AnalysisForm);

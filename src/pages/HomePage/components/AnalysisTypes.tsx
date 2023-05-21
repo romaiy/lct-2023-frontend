@@ -15,6 +15,7 @@ const AnalysisTypes = () => {
                 <AnalysisWrapper>
                     Продвинутый анализ
                 </AnalysisWrapper>
+                
             </Stack>
         </BlockWrapper>
     );

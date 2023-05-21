@@ -3,8 +3,8 @@ import { IconUpload, IconFile, IconX } from '@tabler/icons-react';
 import { Dropzone, MS_EXCEL_MIME_TYPE } from '@mantine/dropzone'
 
 const FileUpload = () => {
-
   const theme = useMantineTheme();
+
   return (
     <Dropzone
       onDrop={(files) => console.log('accepted files', files)}

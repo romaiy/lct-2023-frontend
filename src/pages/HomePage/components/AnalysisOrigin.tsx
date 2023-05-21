@@ -1,5 +1,4 @@
 import { createStyles, SegmentedControl, Stack, TextInput } from "@mantine/core";
-import { useState } from "react";
 import FileUpload from "./FileUpload";
 
 const useStyles = createStyles((_theme) => ({
@@ -16,15 +15,21 @@ const useStyles = createStyles((_theme) => ({
 
 }));
 
-const AnalysisOrigin = () => {
+interface AnalysisOriginProps {
+    origin: string;
+    setOrigin: React.Dispatch<React.SetStateAction<string>>;
+    url: string;
+    setUrl: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const AnalysisOrigin = ({ origin, setOrigin, url, setUrl }: AnalysisOriginProps) => {
     const { classes } = useStyles();
-    const [value, setValue] = useState('database');
     
     return (
         <Stack spacing={24}>
             <SegmentedControl
-                value={value}
-                onChange={setValue}
+                value={origin}
+                onChange={setOrigin}
                 className={classes.segment}
                 data={[
                     { label: 'База данных', value: 'database' },
@@ -34,16 +39,18 @@ const AnalysisOrigin = () => {
                 w={380}
                 lh={'24px'}
             />
-            {value === 'url' ? 
+            {origin === 'url' ? 
                 <TextInput
                     className='input'
                     w={443.5}
+                    value={url}
+                    onChange={(e) => setUrl(e.currentTarget.value)} 
                     lh={'24px'}
                     size="lg"
                     label="Выберите источник"
                     placeholder="http://localhost:3000/"
                 />
-            : value === 'download' ? 
+            : origin === 'download' ? 
                 <FileUpload/>
             : <></>}
         </Stack>
