@@ -19,7 +19,7 @@ const FileExport = () => {
                 Параметры экспорта
                 <Stack spacing={16}>
                     <Autocomplete
-                        data={['.xlsx']}
+                        data={['.xlsx', '.xls', '.csv']}
                         placeholder='.xlsx'
                         label="Тип файла"
                         className="input"

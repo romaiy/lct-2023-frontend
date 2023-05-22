@@ -1,13 +1,21 @@
 import BlockWrapper from "../../../components/Wrappers/BlockWrapper";
-import { IAnalysis } from "../../../models/IAnalysis";
+import { IAnalysisResult } from "../../../models/IAnalysisResult";
 import Example from "./ResultTable";
 
-const AnalysisResult = ({result}: IAnalysis) => {
+const AnalysisResult = (props: {result: IAnalysisResult[] | undefined, 
+    handleAdressDelete: Function, open: () => void, handleSetWorks: Function}) => {
     
     return (
         <BlockWrapper>
             Рекомендуемые работы
-            {result && <Example result={result}/>}
+            {props.result && 
+                <Example 
+                    open={props.open} 
+                    handleAdressDelete={props.handleAdressDelete} 
+                    result={props.result}
+                    handleSetWorks={props.handleSetWorks}
+                />
+            }
         </BlockWrapper>
     );
 };

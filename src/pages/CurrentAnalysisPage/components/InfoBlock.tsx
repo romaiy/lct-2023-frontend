@@ -1,6 +1,5 @@
 import { createStyles, Flex } from "@mantine/core";
 import BlockWrapper from "../../../components/Wrappers/BlockWrapper";
-import { IAnalysis } from "../../../models/IAnalysis";
 import MainCriterion from "./MainCriterion";
 import OptionalCriterion from "./OptionalCriterion";
 
@@ -13,14 +12,15 @@ const useStyles = createStyles((theme) => ({
     }
 }))
 
-const InfoBlock = ({type}: IAnalysis) => {
+const InfoBlock = (props: {type: string}) => {
     const { classes } = useStyles();
+
     return (
         <Flex className={classes.wrapper}>
             <BlockWrapper >
                 Используемые критерии
                 <MainCriterion/>
-                {type === 'base' ? <></> :
+                {props.type === 'base' ? <></> :
                     <OptionalCriterion/>
                 }
             </BlockWrapper>

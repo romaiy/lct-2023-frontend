@@ -1,6 +1,7 @@
 import { IAnalysisResult } from "./IAnalysisResult";
 
 export interface IAnalysis {
-    result: IAnalysisResult[],
-    type: string;
+    result: IAnalysisResult[] | undefined,
+    type: string | undefined;
+    _id: string;
 };
