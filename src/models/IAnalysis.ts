@@ -1,4 +1,6 @@
-export interface IAnalysis {
+import { IAnalysisResult } from "./IAnalysisResult";
 
-    test: boolean;
+export interface IAnalysis {
+    result: IAnalysisResult[],
+    type: string;
 };

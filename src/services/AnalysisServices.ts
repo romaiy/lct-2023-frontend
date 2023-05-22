@@ -1,12 +1,12 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import $api from "../http";
 import { IAnalysis } from "../models/IAnalysis";
 
 export default class AnalysisServices {
 
-    static async baseAnalysis(): Promise<AxiosResponse<IAnalysis[]>>{
-        return $api.get<IAnalysis[]>('/sss');
-    }
+    static async baseAnalysis(): Promise<AxiosResponse<IAnalysis>>{
+        return axios.get<IAnalysis>('http://185.177.219.117:8900/analyze');
+    };
 
     static async smartAnalysisDatabase(object: string, 
         date: [Date | null, Date | null], work: string): Promise<AxiosResponse<IAnalysis>> {

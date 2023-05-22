@@ -19,9 +19,13 @@ const AppRouter = () => {
         };
         if (currentRoute && location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
             setCurrentRoute(false);
-            AStore.setCurrentBaseAnalysis(false);
+            AStore.setCurrentBaseAnalysis(undefined);
         };
     }, [location])
+
+    if (!AStore.currentBaseAnalysis && !location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
+        return <Navigate to='/' replace/>
+    }
 
     if (UStore.isAuth && (location.pathname === '/login' || location.pathname === '/registration')) {
         return <Navigate to='/' replace/>

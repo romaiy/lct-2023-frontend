@@ -12,35 +12,37 @@ const useStyles = createStyles((_theme) => ({
     },
     wrapper: {
         marginTop: '24px'
-    }
+    },
 }));
 
 interface AnalysisInputProps {
     work: string;
     object: string;
     date: [Date | null, Date | null];
-    setWork: React.Dispatch<React.SetStateAction<string>>;
-    setObject: React.Dispatch<React.SetStateAction<string>>;
-    setDate: React.Dispatch<React.SetStateAction<[Date | null, Date | null]>>;
+    setWork?: React.Dispatch<React.SetStateAction<string>> | undefined;
+    setObject?: React.Dispatch<React.SetStateAction<string>> | undefined;
+    setDate?: React.Dispatch<React.SetStateAction<[Date | null, Date | null]>> | undefined;
+    disabled?: boolean;
 }
 
-const AnalysisInput = ({ work, object, date, setWork, setObject, setDate }: AnalysisInputProps) => {
+const AnalysisInput = ({ work, object, date, setWork, setObject, setDate, disabled }: AnalysisInputProps) => {
     const { classes } = useStyles();
 
     return (
-        <Stack spacing={24}>
-            <Flex className={classes.wrapper} gap={16}>
+        <Stack spacing={disabled ? 16 : 24}>
+            <Flex className={disabled ? '' : classes.wrapper} gap={16}>
                 <Autocomplete
                     className='input'
                     w={443.5}
                     lh={'24px'}
                     size="lg"
                     value={object}
-                    onChange={setObject}
+                    onChange={setObject ? setObject : () => {}}
                     label="Категория объекта"
                     limit={6}
                     data={['React', 'Angular', 'Svelte', 'Vue']}
                     placeholder="Двор"
+                    disabled={disabled}
                 />
                 <DatePickerInput
                     valueFormat="YYYY-MM-DD"
@@ -51,7 +53,8 @@ const AnalysisInput = ({ work, object, date, setWork, setObject, setDate }: Anal
                     type="range"
                     label="Отчетный период"
                     value={date}
-                    onChange={setDate}
+                    onChange={setDate ? setDate : () => {}}
+                    disabled={disabled}
                 />
             </Flex>
             <Autocomplete
@@ -64,7 +67,8 @@ const AnalysisInput = ({ work, object, date, setWork, setObject, setDate }: Anal
                 limit={2}
                 data={['React', 'Angular', 'Svelte', 'Vue']}
                 value={work}
-                onChange={setWork}
+                onChange={setWork ? setWork : () => {}}
+                disabled={disabled}
             />
         </Stack>
     );
