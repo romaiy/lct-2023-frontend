@@ -1,12 +1,12 @@
-import { Text } from "@mantine/core";
 import { FC } from "react";
 import Wrapper from "../../components/Wrappers/Wrapper";
+import HistoryList from "./components/HistoryList";
 
 const HistoryPage: FC = () => {
     
     return (
         <Wrapper>
-            <Text size="lg">HistoryPage</Text>
+            <HistoryList/>
             <></>
         </Wrapper>
     );

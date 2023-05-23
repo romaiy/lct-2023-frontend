@@ -45,7 +45,7 @@ const NavbarLink = ({icon: Icon, path, title}: LinksProps) => {
     return (
         <NavLink to={path}>
             <Flex align="center" gap={16} className={classes.link}>
-                <Icon stroke="1.5" />
+                <Icon stroke="2" />
                 <Text lh={'24px'} size="lg">{title}</Text>
             </Flex>
         </NavLink>

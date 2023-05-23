@@ -20,6 +20,7 @@ const AppRouter = () => {
         if (currentRoute && location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
             setCurrentRoute(false);
             AStore.setCurrentBaseAnalysis(undefined);
+            AStore.setCurrentSmartAnalysis(undefined);
         };
     }, [location])
 

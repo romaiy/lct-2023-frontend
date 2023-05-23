@@ -3,13 +3,16 @@ import { IAnalysisResult } from "../../../models/IAnalysisResult";
 import Example from "./ResultTable";
 
 const AnalysisResult = (props: {result: IAnalysisResult[] | undefined, 
-    handleAdressDelete: Function, open: () => void, handleSetWorks: Function}) => {
+    handleAdressDelete: Function, open: () => void, handleSetWorks: Function,
+    handleModalOpen: Function
+}) => {
     
     return (
         <BlockWrapper>
             Рекомендуемые работы
             {props.result && 
                 <Example 
+                    handleModalOpen={props.handleModalOpen}
                     open={props.open} 
                     handleAdressDelete={props.handleAdressDelete} 
                     result={props.result}

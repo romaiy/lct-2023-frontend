@@ -7,6 +7,7 @@ export default class AnalysisStore {
     isSmartLoading = false;
     currentBaseAnalysis = {} as IAnalysis | undefined;
     currentSmartAnalysis = {} as IAnalysis | undefined;
+    analysis = {} as IAnalysis | undefined;
 
     constructor() {
         makeAutoObservable(this);
@@ -21,13 +22,17 @@ export default class AnalysisStore {
         this.isSmartLoading = isLoading;
     };
 
+    setAnalysis(analysis: IAnalysis | undefined) {
+        this.analysis = analysis;
+    }
+
     setCurrentBaseAnalysis(analysis: IAnalysis | undefined) {
         this.currentBaseAnalysis = analysis;
-    }
+    };
 
     setCurrentSmartAnalysis(analysis: IAnalysis | undefined) {
         this.currentSmartAnalysis = analysis;
-    }
+    };
 
     async baseAnalysis() {
         this.setBaseLoading(true);
@@ -40,7 +45,7 @@ export default class AnalysisStore {
         } finally {
             this.setBaseLoading(false);
         }
-    }
+    };
 
     async smartAnalysisDatabase(object: string, 
         date: [Date | null, Date | null], work: string) {
@@ -54,6 +59,8 @@ export default class AnalysisStore {
         } finally {
             this.setSmartLoading(false);
         }
-    }
+    };
+
+
 
 };

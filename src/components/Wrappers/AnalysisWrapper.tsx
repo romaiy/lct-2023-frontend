@@ -9,7 +9,7 @@ import AnalysisForm from "../../pages/HomePage/components/AnalysisForm";
 
 const useStyles = createStyles((theme, opened: boolean) => ({
     wrapper: {
-        padding: opened ? '25px' : '32px 24px',
+        padding: opened ? '25px' : '24px',
         border: opened ? '' : '1px solid #E9ECEF',
         borderRadius: '16px',
         background: opened ? theme.colors.gray[0] : ''
@@ -39,8 +39,8 @@ const AnalysisWrapper = ({children}: Props) => {
             <Flex justify="space-between">
                 <Flex align="flex-start" gap={12}>
                     {children ? children === 'Базовый анализ' ? 
-                        <IconStarFilled stroke={'1.5'} style={{color: theme.colors.red[7]}}/> :
-                        <IconStarsFilled stroke={'1.5'} style={{color: theme.colors.red[7]}}/>
+                        <IconStarFilled stroke={'2'} style={{color: theme.colors.red[7]}}/> :
+                        <IconStarsFilled stroke={'2'} style={{color: theme.colors.red[7]}}/>
                     : <></>}
                     <Stack spacing={4}>
                         <Title color="gray.9" size="h5">{children ? children : <></>}</Title>
@@ -52,7 +52,7 @@ const AnalysisWrapper = ({children}: Props) => {
                 </Flex>
                 <IconX 
                     onClick={toggle} 
-                    stroke={'1.5'} 
+                    stroke={'2'} 
                     color={theme.colors.gray[5]} 
                     style={!opened ? {display: 'none'} : {cursor: 'pointer'}}
                 />

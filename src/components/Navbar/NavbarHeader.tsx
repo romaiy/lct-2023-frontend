@@ -11,7 +11,7 @@ const NavbarHeader = () => {
     return(
         <Flex gap={16} align='center'>
             <Avatar w={56} h={56} color="red.0" radius={32}>
-                <IconHome stroke="1.5" color={theme.colors.red[5]}/> 
+                <IconHome stroke="2" color={theme.colors.red[5]}/> 
             </Avatar>
             <Stack w={184} spacing={4}>
                 <Title color="gray.9" size="h5">{UStore.user.username}</Title>
@@ -21,7 +21,7 @@ const NavbarHeader = () => {
             </Stack>
             <IconLogout 
                 style={{marginLeft: 'auto', cursor: 'pointer'}} 
-                stroke="1.5" 
+                stroke="2" 
                 color={theme.colors.gray[4]}
                 onClick={() => UStore.logout()}
             />

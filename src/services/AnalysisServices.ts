@@ -15,6 +15,9 @@ export default class AnalysisServices {
 
     static async selectAnalysis(id: string): Promise<AxiosResponse<IAnalysis>> {
         return $api.get<IAnalysis>('/e' + '/' + id);
-    }
+    };
 
+    static async saveAnalysis(analysis: IAnalysis): Promise<AxiosResponse<string>> {
+        return $api.post<string>('/test', {analysis});
+    }
 };

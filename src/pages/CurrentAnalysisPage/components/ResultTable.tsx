@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { MantineReactTable, MRT_ColumnDef } from 'mantine-react-table';
 import { Box, Button, Flex, List, MantineProvider, useMantineTheme } from '@mantine/core';
 import { IconArrowsMaximize, IconEdit, IconTrashX } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 
 type IAnalysisResult = {
     workname: string[];
@@ -10,11 +11,13 @@ type IAnalysisResult = {
 };
 
 const Example = (props: 
-    {result: IAnalysisResult[], handleAdressDelete: Function, open: () => void, handleSetWorks: Function}) => {
+    {result: IAnalysisResult[], handleAdressDelete: Function, 
+        open: () => void, handleSetWorks: Function, handleModalOpen: Function}) => {
     const theme = useMantineTheme();
+    const navigate = useNavigate();
 
-    const handleEditClick = (workname: string[]) => {
-        props.handleSetWorks(workname);
+    const handleEditClick = (workname: string[], adress: string) => {
+        props.handleSetWorks(workname, adress);
         props.open();
     };
 
@@ -118,9 +121,7 @@ const Example = (props:
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
-
                 }
-                
             }}
             mantinePaperProps={{
                 sx: {
@@ -161,18 +162,20 @@ const Example = (props:
                 return (
                     <Flex gap={10} align="center">
                         <IconArrowsMaximize
+                            onClick={() => props.handleModalOpen(cell.row._valuesCache.adress)}
                             style={{cursor: 'pointer'}} 
-                            stroke={'1.5'} 
+                            stroke={'2'} 
                             color={theme.colors.gray[9]}/>
                         <IconEdit
-                            onClick={() => handleEditClick(cell.row._valuesCache.workname)}
+                            onClick={() =>
+                                handleEditClick(cell.row._valuesCache.workname, cell.row._valuesCache.adress)}
                             style={{cursor: 'pointer'}} 
-                            stroke={'1.5'} 
+                            stroke={'2'} 
                             color={theme.colors.gray[9]}/>
                         <IconTrashX
                             onClick={() => props.handleAdressDelete(cell.row._valuesCache.adress)}
                             style={{cursor: 'pointer'}} 
-                            stroke={'1.5'} 
+                            stroke={'2'} 
                             color={theme.colors.red[7]}/>
                     </Flex>
                 );
