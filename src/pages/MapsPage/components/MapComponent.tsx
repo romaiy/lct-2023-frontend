@@ -1,9 +1,24 @@
 import { Map, Placemark } from "@pbe/react-yandex-maps";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const MapComponent = () => {
     const location = useLocation();
+    const [markers, setMarkers] = useState <{x: number, y: number}[]>([]);
+
+    useEffect(() => {
+        let Point = {pos: '37.587614 55.753083'}
+        location.state.addresses.map((item: string) => {
+
+            let stringArray: string[] = Point.pos.split(' ');
+            let numberArray: number[] = [];
+            for (let i = 0; i < 2; i++) {
+                numberArray.push(+stringArray[i]);
+            };
+            setMarkers([...markers!, {x: numberArray[0], y: numberArray[1]}]);
+        });
+    }, [])
 
     const handleGet = async () => {
         try {
@@ -16,7 +31,9 @@ const MapComponent = () => {
 
     return (
     <div>
-        <div onClick={handleGet}>ffsafsdfsafdasdf</div>
+        {markers && markers.map(item => (
+            <div>{item.x} {item.y}</div>
+        ))}
         <Map
             defaultState={{
                 center: [55.75, 37.57],
@@ -27,6 +44,7 @@ const MapComponent = () => {
             width={1139} height={'100vh'}
         >
             <Placemark defaultGeometry={[55.75, 37.57]} />
+            <Placemark defaultGeometry={[55.77, 37.57]} />
         </Map>
     </div>
 

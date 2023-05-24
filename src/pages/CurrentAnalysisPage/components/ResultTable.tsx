@@ -146,8 +146,12 @@ const Example = (props:
                             fz='lg'
                             w={212} h={48}
                             fw={400}
-                            style={{color: '#1C1C1C', background: 'white', 
-                            border: '1px solid #ADB5BD', cursor: 'pointer'}}
+                            style={table.getSelectedRowModel().rows.length === 0 ?
+                                {color: '#1C1C10C', background: '#E9ECEF', 
+                                border: '1px solid #ADB5BD', cursor: 'pointer'} :
+                                {color: '#1C1C1C', background: 'white', 
+                                border: '1px solid #ADB5BD', cursor: 'pointer'}
+                            }
                             onClick={handleActivate}
                             disabled={table.getSelectedRowModel().rows.length === 0}
                         >
