@@ -1,8 +1,14 @@
+import { useLocation } from "react-router-dom";
 
 const MapsPage = () => {
+    const location = useLocation();
 
     return (
-        <>123</>
+        <div>
+            {location.state.addresses.map((item: string) => (
+                <div key={item}>{item}</div>
+            ))}
+        </div>
     );
 };
 

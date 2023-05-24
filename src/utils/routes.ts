@@ -42,7 +42,7 @@ export const authRoutes = [
     {
         path: MAPS_ROUTE,
         Component: MapsPage,
-        title: '',
+        title: 'Результаты на карте',
         icon: IconList
     }
 ]

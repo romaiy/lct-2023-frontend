@@ -3,6 +3,7 @@ import { MantineReactTable, MRT_ColumnDef } from 'mantine-react-table';
 import { Box, Button, Flex, List, MantineProvider, useMantineTheme } from '@mantine/core';
 import { IconArrowsMaximize, IconEdit, IconTrashX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { MAPS_ROUTE } from '../../../utils/const';
 
 type IAnalysisResult = {
     workname: string[];
@@ -130,17 +131,14 @@ const Example = (props:
                     border: '1px solid #E9ECEF',
                 },
             }}
-            renderColumnActionsMenuItems={() => {
-                return (
-                    <>123</>
-                )
-            }}
             renderTopToolbarCustomActions={({ table }) => {
                 
                 const handleActivate = () => {
+                    let addresses: string[] = [];
                     table.getSelectedRowModel().flatRows.map((row) => {
-                        console.log('activating ' + row.getValue('name'));
+                        addresses.push(row.getValue('adress'));
                     });
+                    navigate(MAPS_ROUTE, {state: {addresses: addresses}});
                 };
                 
                 return (
@@ -151,7 +149,7 @@ const Example = (props:
                             style={{color: '#1C1C1C', background: 'white', 
                             border: '1px solid #ADB5BD', cursor: 'pointer'}}
                             onClick={handleActivate}
-                            
+                            disabled={table.getSelectedRowModel().rows.length === 0}
                         >
                             Смотреть на карте
                         </Button>

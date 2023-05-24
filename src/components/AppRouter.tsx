@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Context } from "../main";
-import { CURRENT_ANALYSIS_ROUT } from "../utils/const";
+import { CURRENT_ANALYSIS_ROUT, MAPS_ROUTE } from "../utils/const";
 import { authRoutes, publicRoutes } from "../utils/routes";
 import Header from "./Header/Header";
 import NavbarNested from "./Navbar/Navbar";
@@ -17,14 +17,14 @@ const AppRouter = () => {
         if (!location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
             setCurrentRoute(true);
         };
-        if (currentRoute && location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
+        if (currentRoute && (location.pathname != MAPS_ROUTE && location.pathname != '/analysis/0')) {
             setCurrentRoute(false);
             AStore.setCurrentBaseAnalysis(undefined);
             AStore.setCurrentSmartAnalysis(undefined);
         };
     }, [location])
 
-    if (!AStore.currentBaseAnalysis && !location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
+    if ((!AStore.currentBaseAnalysis && !AStore.currentSmartAnalysis) && !location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
         return <Navigate to='/' replace/>
     }
 
