@@ -1,14 +1,14 @@
-import { useLocation } from "react-router-dom";
+import Wrapper from "../../components/Wrappers/Wrapper";
+import Addresses from "./components/Addresses";
+import MapComponent from "./components/MapComponent";
 
 const MapsPage = () => {
-    const location = useLocation();
 
     return (
-        <div>
-            {location.state.addresses.map((item: string) => (
-                <div key={item}>{item}</div>
-            ))}
-        </div>
+        <Wrapper>
+            <MapComponent/>
+            <Addresses/>
+        </Wrapper>
     );
 };
 

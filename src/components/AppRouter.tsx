@@ -32,7 +32,9 @@ const AppRouter = () => {
         return <Navigate to='/' replace/>
     };
 
-    if (!UStore.isAuth && (location.pathname === '/' || location.pathname === '/history' || location.pathname === '/database')) {
+    if (!UStore.isAuth && 
+        (location.pathname === '/' || location.pathname === '/history' || location.pathname === '/database' ||
+        location.pathname === '/help' || location.pathname === '/maps')) {
         return <Navigate to='/login' replace/>
     };
 

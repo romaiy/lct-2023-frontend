@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 import AppRouter from "./components/AppRouter"
 import { Context } from "./main";
 import './styles/reset.css';
+import { YMaps } from "@pbe/react-yandex-maps";
 
 const App = () => {
   const { UStore } = useContext(Context);
@@ -25,7 +26,9 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <AppRouter/>
+      <YMaps>
+        <AppRouter/>
+      </YMaps>
     </BrowserRouter>
   )
 }
