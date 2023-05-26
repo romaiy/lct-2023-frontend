@@ -35,10 +35,11 @@ const CurrentAnalysisPage: FC = () => {
             try {
                 AStore.setBaseLoading(true);
                 AnalysisServices.selectAnalysis(id ? id : '1').then((response) => {
-                    if (!isCancelled) { 
+                    if (!isCancelled) {
+                        console.log(response.data) 
                         setAnalysisResult(response.data);
                         setResult(response.data.result);
-                    }
+                    };
                 });
             } catch (e) {
                 console.log(e);
@@ -64,7 +65,7 @@ const CurrentAnalysisPage: FC = () => {
             if (item.adress === adressEdit) {
                 const changeableАddress = item;
                 changeableАddress.workname = works;
-                const indexToReplace = result!.findIndex((res) => res.adress === adressEdit); //тут возвращает хуйню и еще стейт не обнавляется
+                const indexToReplace = result!.findIndex((res) => res.adress === adressEdit);
                 const newState = result?.map((item: any, index: number) => {
                     if (index === indexToReplace) {
                         return {...item, workname: works};
@@ -105,7 +106,7 @@ const CurrentAnalysisPage: FC = () => {
             {analysisResult &&
             <Wrapper>
                 <Stack spacing={24}>
-                    <InfoBlock type={analysisResult.type!}/>
+                    <InfoBlock criterias={analysisResult.criterias} type={analysisResult.type!}/>
                     <AnalysisResult 
                         open={open} 
                         handleAdressDelete={handleAdressDelete} 
@@ -145,7 +146,7 @@ const CurrentAnalysisPage: FC = () => {
                         />
                     </Modal>
                 </Stack>
-                <FileExport/>
+                <FileExport id={analysisResult.id}/>
             </Wrapper>
             }
         </div>

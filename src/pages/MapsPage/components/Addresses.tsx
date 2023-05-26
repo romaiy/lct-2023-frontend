@@ -1,6 +1,8 @@
 import { Flex, List, Text, createStyles } from "@mantine/core";
-import { useLocation } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useContext } from "react";
 import BlockWrapper from "../../../components/Wrappers/BlockWrapper";
+import { Context } from "../../../main";
 
 const useStyles = createStyles((theme) => ({
 
@@ -13,7 +15,7 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const Addresses = () => {
-    const location = useLocation();
+    const { MStore } = useContext(Context);
     const { classes } = useStyles();
 
     return (
@@ -21,8 +23,8 @@ const Addresses = () => {
             <BlockWrapper>
                 Выбранные адреса
                 <List spacing={16}>
-                    {location.state.addresses.map((item: string) => (
-                        <List.Item key={item}>
+                    {MStore.addresses.map((item: string, index) => (
+                        <List.Item key={index}>
                             <Text color="gray.9" size="lg" lh={'24px'} >
                                 {item}
                             </Text>
@@ -34,4 +36,4 @@ const Addresses = () => {
     );
 };
 
-export default Addresses;
+export default observer(Addresses);

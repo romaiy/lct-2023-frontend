@@ -12,13 +12,13 @@ const useStyles = createStyles(() => ({
     },
 }));
 
-const HistoryItem = ({type, date, _id}: IAnalysis) => {
+const HistoryItem = ({type, date, id, criterias}: IAnalysis) => {
     const { classes } = useStyles();
 
     return (
         <Stack className={classes.wrapper} spacing={16}>
             <ItemHeading type={type!} date={date!}/>
-            <ItemFooter type={type!} _id={_id!}/>
+            <ItemFooter criterias={criterias!} type={type!} id={id!}/>
         </Stack>
     );
 };

@@ -7,6 +7,8 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
 import AnalysisServices from "../../services/AnalysisServices";
+import _cloneDeep from 'lodash'
+import _ from "lodash";
 
 const Header = () => {
     const { AStore } = useContext(Context);
@@ -23,6 +25,15 @@ const Header = () => {
         }
     }, [location]);
 
+    const handleUpdate = () => {
+        console.log(_.cloneDeep(AStore.analysis!));
+        try {
+            AnalysisServices.saveAnalysis(_.cloneDeep(AStore.analysis!)) 
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     return (
         <Flex align="center" gap={16} style={{padding: '48px 24px 24px', width: '100%'}}>
             {(!location.pathname.indexOf(CURRENT_ANALYSIS_ROUT) || location.pathname === MAPS_ROUTE) ? 
@@ -36,7 +47,7 @@ const Header = () => {
                     color={'red.7'}
                     fw={400}
                     style={{marginLeft: 'auto'}}
-                    onClick={() => AnalysisServices.saveAnalysis(AStore.analysis!)}
+                    onClick={handleUpdate}
                 >
                     Сохранить
                 </Button>

@@ -4,6 +4,7 @@ import { Context } from "../../../main";
 import HistoryServices from "../../../services/HistoryServices";
 import sad from '../../../assets/sad.png';
 import HistoryItem from "./HistoryItem";
+import { observer } from "mobx-react-lite";
 
 const HistoryList = () => {
     const { HStore } = useContext(Context);
@@ -13,7 +14,7 @@ const HistoryList = () => {
         try {
             HistoryServices.fetchHistory().then((response) => {
                 if (!isCancelled) { 
-                    HStore.setHistory(response.data)
+                    HStore.setHistory(response.data);
                 }
             });
         } catch (e) {
@@ -27,12 +28,15 @@ const HistoryList = () => {
 
     return (
         <div>
-            {HStore.history ?
+            {HStore.history?.length != 0 ?
+            <div>
+                {HStore.history &&
                 <Stack spacing={8}>
-                    {HStore.history.map((item) => (
-                        <HistoryItem {...item} key={item._id}/>
+                    {HStore.history!.map((item, index) => (
+                        <HistoryItem {...item} key={index}/>
                     ))}
-                </Stack>
+                </Stack>}
+            </div>
             : 
                 <Flex  justify="center" align="center">
                     <Stack spacing={8} align="center">
@@ -48,4 +52,4 @@ const HistoryList = () => {
     );
 };
 
-export default HistoryList;
+export default observer(HistoryList);

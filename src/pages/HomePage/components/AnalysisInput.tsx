@@ -1,5 +1,7 @@
 import { Autocomplete, createStyles, Flex, Stack } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
+import { useEffect, useState } from "react";
+import AnalysisServices from "../../../services/AnalysisServices";
 
 const useStyles = createStyles((_theme) => ({
     job: {
@@ -27,10 +29,26 @@ interface AnalysisInputProps {
 
 const AnalysisInput = ({ work, object, date, setWork, setObject, setDate, disabled }: AnalysisInputProps) => {
     const { classes } = useStyles();
+    const [worktype, setWorktype] = useState<string[]>();
+    const [objcategories, setObjcategories] = useState<string[]>();
+
+    useEffect(() => {
+        try {
+            AnalysisServices.setObjcategories().then(response => {
+                setObjcategories(response.data);
+            });
+            AnalysisServices.setWorktypes().then(response => {
+                setWorktype(response.data);
+            });
+        } catch (e) {
+            console.log(e)
+        }
+    }, []);
 
     return (
         <Stack spacing={disabled ? 16 : 24}>
             <Flex className={disabled ? '' : classes.wrapper} gap={16}>
+                {objcategories &&
                 <Autocomplete
                     className='input'
                     w={443.5}
@@ -40,10 +58,10 @@ const AnalysisInput = ({ work, object, date, setWork, setObject, setDate, disabl
                     onChange={setObject ? setObject : () => {}}
                     label="Категория объекта"
                     limit={6}
-                    data={['React', 'Angular', 'Svelte', 'Vue']}
+                    data={objcategories!}
                     placeholder="Двор"
                     disabled={disabled}
-                />
+                />}
                 <DatePickerInput
                     valueFormat="YYYY-MM-DD"
                     className='input'
@@ -57,6 +75,7 @@ const AnalysisInput = ({ work, object, date, setWork, setObject, setDate, disabl
                     disabled={disabled}
                 />
             </Flex>
+            {worktype &&
             <Autocomplete
                 className={classes.job}
                 label="Вид работ"
@@ -65,11 +84,11 @@ const AnalysisInput = ({ work, object, date, setWork, setObject, setDate, disabl
                 w={903}
                 lh={'24px'}
                 limit={2}
-                data={['React', 'Angular', 'Svelte', 'Vue']}
+                data={worktype!}
                 value={work}
                 onChange={setWork ? setWork : () => {}}
                 disabled={disabled}
-            />
+            />}
         </Stack>
     );
 };

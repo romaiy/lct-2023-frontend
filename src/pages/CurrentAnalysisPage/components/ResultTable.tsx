@@ -1,9 +1,11 @@
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { MantineReactTable, MRT_ColumnDef } from 'mantine-react-table';
 import { Box, Button, Flex, List, MantineProvider, useMantineTheme } from '@mantine/core';
 import { IconArrowsMaximize, IconEdit, IconTrashX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { MAPS_ROUTE } from '../../../utils/const';
+import { Context } from '../../../main';
+import { observer } from 'mobx-react-lite';
 
 type IAnalysisResult = {
     workname: string[];
@@ -16,6 +18,7 @@ const Example = (props:
         open: () => void, handleSetWorks: Function, handleModalOpen: Function}) => {
     const theme = useMantineTheme();
     const navigate = useNavigate();
+    const { MStore } = useContext(Context);
 
     const handleEditClick = (workname: string[], adress: string) => {
         props.handleSetWorks(workname, adress);
@@ -132,13 +135,15 @@ const Example = (props:
                 },
             }}
             renderTopToolbarCustomActions={({ table }) => {
-                
+    
                 const handleActivate = () => {
-                    let addresses: string[] = [];
+                    MStore.mapsClear();
                     table.getSelectedRowModel().flatRows.map((row) => {
-                        addresses.push(row.getValue('adress'));
+                        MStore.setAddresses(row.getValue('adress'));
+                        MStore.setPriority(row.getValue('priority'));
+                        MStore.setWorkname(row.getValue('workname'));
                     });
-                    navigate(MAPS_ROUTE, {state: {addresses: addresses}});
+                    navigate(MAPS_ROUTE);
                 };
                 
                 return (
@@ -187,4 +192,4 @@ const Example = (props:
     );
 };
 
-export default Example;
+export default observer(Example);

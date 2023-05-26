@@ -5,21 +5,29 @@ import UserStore from './store/UserStore';
 import { createContext } from 'react';
 import AnalysisStore from './store/AnalysisStore';
 import HistoryStore from './store/HistoryStore';
+import DatabaseStore from './store/DatabaseStore';
+import MapsStore from './store/MapsStore';
 
 interface State {
   UStore: UserStore,
   AStore: AnalysisStore,
   HStore: HistoryStore,
+  DStore: DatabaseStore,
+  MStore: MapsStore,
 }
 
 const UStore = new UserStore();
 const AStore = new AnalysisStore();
 const HStore = new HistoryStore();
+const DStore = new DatabaseStore();
+const MStore = new MapsStore();
 
 export const Context = createContext<State>({
   UStore,
   AStore,
   HStore,
+  DStore,
+  MStore,
 });
 
 const root = ReactDOM.createRoot(
@@ -27,7 +35,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Context.Provider value={{ UStore, AStore, HStore }}>
+  <Context.Provider value={{ UStore, AStore, HStore, DStore, MStore }}>
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS

@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
     }
 }))
 
-const InfoBlock = (props: {type: string}) => {
+const InfoBlock = (props: {type: string, criterias: string[] | undefined}) => {
     const { classes } = useStyles();
 
     return (
@@ -21,7 +21,7 @@ const InfoBlock = (props: {type: string}) => {
                 Используемые критерии
                 <MainCriterion/>
                 {props.type === 'base' ? <></> :
-                    <OptionalCriterion/>
+                    <OptionalCriterion criterias={props.criterias}/>
                 }
             </BlockWrapper>
         </Flex>

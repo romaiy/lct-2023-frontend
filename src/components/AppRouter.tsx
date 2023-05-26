@@ -22,11 +22,11 @@ const AppRouter = () => {
             AStore.setCurrentBaseAnalysis(undefined);
             AStore.setCurrentSmartAnalysis(undefined);
         };
-    }, [location])
+    }, [location]);
 
-    if ((!AStore.currentBaseAnalysis && !AStore.currentSmartAnalysis) && !location.pathname.indexOf(CURRENT_ANALYSIS_ROUT)) {
+    if ((!AStore.currentBaseAnalysis && !AStore.currentSmartAnalysis) && location.pathname === '/analysis/0') {
         return <Navigate to='/' replace/>
-    }
+    };
 
     if (UStore.isAuth && (location.pathname === '/login' || location.pathname === '/registration')) {
         return <Navigate to='/' replace/>
