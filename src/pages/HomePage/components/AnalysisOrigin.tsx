@@ -1,4 +1,4 @@
-import { createStyles, SegmentedControl, Stack, TextInput } from "@mantine/core";
+import { createStyles, Flex, Group, Radio, SegmentedControl, Stack, TextInput } from "@mantine/core";
 import FileUpload from "./FileUpload";
 
 const useStyles = createStyles((_theme) => ({
@@ -12,6 +12,12 @@ const useStyles = createStyles((_theme) => ({
             padding: '4px 12px'
         },
     },
+    radio: {
+        div: {
+            fontSize: '16px',
+            lineHeight: '24px'
+        }
+    }
 
 }));
 
@@ -39,17 +45,36 @@ const AnalysisOrigin = ({ origin, setOrigin, url, setUrl }: AnalysisOriginProps)
                 w={380}
                 lh={'24px'}
             />
-            {origin === 'url' ? 
-                <TextInput
-                    className='input'
-                    w={443.5}
-                    value={url}
-                    onChange={(e) => setUrl(e.currentTarget.value)} 
-                    lh={'24px'}
-                    size="lg"
-                    label="Выберите источник"
-                    placeholder="http://localhost:3000/"
-                />
+            {origin === 'url' ?
+                <Flex align="flex-start" gap={24}>
+                    <TextInput
+                        className='input'
+                        w={443.5}
+                        value={url}
+                        onChange={(e) => setUrl(e.currentTarget.value)} 
+                        lh={'24px'}
+                        size="lg"
+                        label="Выберите источник"
+                        placeholder="http://localhost:3000/"
+                    />
+                    <Radio.Group
+                        name="favoriteFramework"
+                        label="Укажите тип файла"
+                        className={classes.radio}
+                    >
+                        <Group mt="xs">
+                            <Radio color="red.7" 
+                                size="md" value="react" label="React" 
+                            />
+                            <Radio color="red.7" 
+                                size="md" value="svelte" label="Svelte" 
+                            />
+                            <Radio color="red.7" 
+                                size="md" value="ng" label="Angular" 
+                            />
+                        </Group>
+                    </Radio.Group>
+                </Flex>
             : origin === 'download' ? 
                 <FileUpload/>
             : <></>}
