@@ -46,7 +46,7 @@ const Example = (props:
                             display: 'inline-block'
                         })}
                     >
-                        {cell.getValue<string>()}
+                        Плановая работа
                     </Box>
                 ),
             },
@@ -169,8 +169,6 @@ const Example = (props:
                 return (
                     <Flex gap={10} align="center">
                         <IconArrowsMaximize
-                            onClick={() => props.handleModalOpen(cell.row._valuesCache.adress)}
-                            style={{cursor: 'pointer'}} 
                             stroke={'2'} 
                             color={theme.colors.gray[9]}/>
                         <IconEdit
