@@ -18,7 +18,6 @@ const AnalysisForm = () => {
     const [work, setWork] = useState<string>('');
     const [origin, setOrigin] = useState<string>('database');
     const [url, setUrl] = useState<string>('');
-    const [urlType, setUrlType] = useState<string>('');
     const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
 
     useEffect(() => {

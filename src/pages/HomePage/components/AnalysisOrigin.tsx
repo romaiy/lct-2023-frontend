@@ -39,8 +39,8 @@ const AnalysisOrigin = ({ origin, setOrigin, url, setUrl }: AnalysisOriginProps)
                 className={classes.segment}
                 data={[
                     { label: 'База данных', value: 'database' },
-                    { label: 'Сторонний сервис', value: 'url' },
-                    { label: 'Загрузка', value: 'download' },
+                    { label: 'Сторонний сервис', value: 'url', disabled: true },
+                    { label: 'Загрузка', value: 'download', disabled: true },
                 ]}
                 w={380}
                 lh={'24px'}
