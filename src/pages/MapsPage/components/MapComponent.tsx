@@ -1,4 +1,4 @@
-import { Map, Placemark } from "@pbe/react-yandex-maps";
+import { Clusterer, Map, Placemark } from "@pbe/react-yandex-maps";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useState } from "react";
@@ -42,23 +42,30 @@ const MapComponent = () => {
             modules={["control.ZoomControl", "control.FullscreenControl"]}
             width={1139} height={'100vh'}
         >
-            {markers.map((item, index) => (
-                <Placemark
-                    key={index} 
-                    defaultGeometry={[item.x, item.y]}
-                    modules={["geoObject.addon.hint"]}
-                    properties={{
-                        hintContent: `${item.address}`,
-                        iconContent: `${item.workname.length}`
-                    }}
-                    options={{
-                        preset: 
-                        item.priority === 'Плановая работа' ? 'islands#orangeCircleIcon' : 
-                        'islands#redCircleIcon',
-                        iconImageSize: [16, 16]
-                    }}
-                />
-            ))}
+            <Clusterer
+                options={{
+                    preset: "islands#invertedOrangeClusterIcons",
+                    groupByCoordinates: false,
+                }}
+            >
+                {markers.map((item, index) => (
+                    <Placemark
+                        key={index} 
+                        defaultGeometry={[item.x, item.y]}
+                        modules={["geoObject.addon.hint"]}
+                        properties={{
+                            hintContent: `${item.address}`,
+                            iconContent: `${item.workname.length}`
+                        }}
+                        options={{
+                            preset: 
+                            item.priority === 'Плановая работа' ? 'islands#blackCircleDotIcon' : 
+                            'islands#orangeCircleDotIcon',
+                            iconImageSize: [16, 16]
+                        }}
+                    />
+                ))}
+            </Clusterer>
         </Map>
         : <></>}
     </div>

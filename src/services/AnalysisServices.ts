@@ -1,40 +1,40 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import $api from "../http";
 import { IAnalysis } from "../models/IAnalysis";
 
 export default class AnalysisServices {
 
     static async baseAnalysis(): Promise<AxiosResponse<IAnalysis>>{
-        return axios.get<IAnalysis>('http://185.177.219.117:8900/analyze');
+        return $api.get<IAnalysis>('/analysis/base');
     };
 
     static async smartAnalysisDatabase(obj: string, 
         date: [Date | null, Date | null], work: string): Promise<AxiosResponse<IAnalysis>> {
-            return $api.post<IAnalysis>('http://185.177.219.117:8900/analyze/criterized', {obj, date, work})
+            return $api.post<IAnalysis>('/analysis/advanced', {obj, date, work})
     };
 
     static async smartAnalysisUrl(object: string, 
         date: [Date | null, Date | null], work: string, url: string): Promise<AxiosResponse<IAnalysis>> {
-            return $api.post<IAnalysis>('/afk', {object, date, work, url})
+            return $api.post<IAnalysis>('/analysis/advanced/url', {object, date, work, url})
     };
 
     static async selectAnalysis(id: string): Promise<AxiosResponse<IAnalysis>> {
-        return $api.get<IAnalysis>('http://185.177.219.117:8900/analyze' + '/' + id);
+        return $api.get<IAnalysis>('/analysis' + '/' + id);
     };
 
     static async saveAnalysis(analysis: IAnalysis): Promise<AxiosResponse<string>> {
-        return $api.post<string>('http://185.177.219.117:8900/analyze/update', analysis);
+        return $api.post<string>('/analysis/update', analysis);
     };
 
     static async fileExport(name: string, type:string, id: string): Promise<AxiosResponse<Blob>> {
-        return $api.get<Blob>(`http://185.177.219.117:8900/${type.substring(1)}byid/${id}/${name}`, {responseType: 'blob'});
+        return $api.get<Blob>(`/analysis/${type.substring(1)}byid/${id}/${name}`, {responseType: 'blob'});
     };
 
     static async setWorktypes() : Promise<AxiosResponse<string[]>> {
-        return $api.get<string[]>(`http://185.177.219.117:8900/worktypes`);
+        return $api.get<string[]>(`/analysis/worktypes`);
     };
 
     static async setObjcategories() : Promise<AxiosResponse<string[]>> {
-        return $api.get<string[]>(`http://185.177.219.117:8900/objcategories`);
+        return $api.get<string[]>(`/analysis/objcategories`);
     };
 };
