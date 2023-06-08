@@ -77,14 +77,16 @@ const Example = (props:
             }}
         >
         <MantineReactTable
-            initialState={{ showColumnFilters: true }}
+            initialState={{ showColumnFilters: true, showGlobalFilter: true, }}
+            enableGlobalFilterModes={false}
+            enableFilterMatchHighlighting
+            enableGlobalFilterRankedResults={false}
             columns={columns}
             data={props.result}
             enableColumnOrdering
             enablePinning
             enableRowActions
             enableRowSelection
-            enableSorting
             enableColumnActions={false}
             enableColumnDragging={false}
             enableToolbarInternalActions={false}
@@ -169,6 +171,9 @@ const Example = (props:
                 return (
                     <Flex gap={10} align="center">
                         <IconArrowsMaximize
+                            onClick={() => 
+                                props.handleModalOpen(cell.row._valuesCache.adress)}
+                            style={{cursor: 'pointer'}} 
                             stroke={'2'} 
                             color={theme.colors.gray[9]}/>
                         <IconEdit

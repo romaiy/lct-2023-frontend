@@ -18,6 +18,7 @@ const ModalInfoBlock = (props: {stats: object, title: string}) => {
             <Title size="h5" color="gray.9">{props.title}</Title>
             <Stack spacing={8}>
                 {stat && stat.map((item) => (
+                    item.value === '0' ? <></> :
                     <Flex key={item.key} align="center" justify="space-between">
                         <Text color="gray.9" size="lg" lh={'24px'}>{item.key}</Text>
                         <Text color="gray.6" size="lg" lh={'24px'}>{item.value}</Text>
