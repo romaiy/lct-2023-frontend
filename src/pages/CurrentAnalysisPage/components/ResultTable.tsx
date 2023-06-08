@@ -46,7 +46,7 @@ const Example = (props:
                             display: 'inline-block'
                         })}
                     >
-                        Плановая работа
+                        {cell.getValue<string>()}
                     </Box>
                 ),
             },
