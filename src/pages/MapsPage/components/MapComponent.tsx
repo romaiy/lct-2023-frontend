@@ -52,16 +52,24 @@ const MapComponent = () => {
                     <Placemark
                         key={index} 
                         defaultGeometry={[item.x, item.y]}
-                        modules={["geoObject.addon.hint"]}
+                        modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
                         properties={{
-                            hintContent: `${item.address}`,
-                            iconContent: `${item.workname.length}`
+                            hintContent: `${!item.address.indexOf('внутригородская') ? 
+                            item.address.slice(item.address.indexOf(',')+1).trim() :
+                            item.address}`,
+                            iconContent: `${item.workname.length}`,
+                            balloonContentHeader: `${!item.address.indexOf('внутригородская') ? 
+                            item.address.slice(item.address.indexOf(',')+1).trim() :
+                            item.address} <br/>`,
+                            balloonContentBody: `${item.workname.map(work => {
+                                return (`• ${work} <br/>`)
+                            })}`,
                         }}
                         options={{
                             preset: 
                             item.priority === 'Плановая работа' ? 'islands#blackCircleDotIcon' : 
                             'islands#orangeCircleDotIcon',
-                            iconImageSize: [16, 16]
+                            iconImageSize: [16, 16],
                         }}
                     />
                 ))}
