@@ -19,7 +19,7 @@ const useStyles = createStyles((theme) => ({
 const FileExport = (props: {id: string}) => {
     const { classes } = useStyles();
     const [type, setType] = useState<string>('');
-    const [fileName, setFileName] = useState<string>('');
+    const [fileName, setFileName] = useState<string>('table 1');
     const [hover, setHover] = useState<boolean>(false);
 
     const handleDownload = async () => {
@@ -80,7 +80,7 @@ const FileExport = (props: {id: string}) => {
                         className="input"
                         size="lg"
                         w={321}
-                        placeholder="Сводка по работам"
+                        placeholder="file name"
                         onChange={(e) => setFileName(e.currentTarget.value)}
                         value={fileName}
                     />

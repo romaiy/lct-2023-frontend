@@ -12,6 +12,7 @@ export default class AnalysisStore {
     constructor() {
         makeAutoObservable(this);
         this.currentBaseAnalysis = undefined;
+        this.currentSmartAnalysis = undefined;
     }
 
     setBaseLoading(isLoading: boolean) {

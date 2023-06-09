@@ -7,7 +7,7 @@ import { Context } from "../../../main";
 
 const MapComponent = () => {
     const location = useLocation();
-    const [markers, setMarkers] = useState <{x: number, y: number, address: string, priority: string, workname: string[]}[]>([]);
+    const [markers, setMarkers] = useState <{x: number, y: number, address: string, causes: string[], workname: string[]}[]>([]);
     const { MStore } = useContext(Context);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const MapComponent = () => {
                         numberArray.push(+stringArray[j]);
                     };
                     setMarkers(item => [...item!, {x: numberArray[1], y: numberArray[0], 
-                        address: MStore.addresses[i], priority: MStore.priority[i], workname: MStore.workname[i]}]);
+                        address: MStore.addresses[i], causes: MStore.causes[i], workname: MStore.workname[i]}]);
                 })
             } catch (error) {
                 console.log(error)
@@ -67,7 +67,7 @@ const MapComponent = () => {
                         }}
                         options={{
                             preset: 
-                            item.priority === 'Плановая работа' ? 'islands#blackCircleDotIcon' : 
+                            item.causes.length === 0 ? 'islands#blackCircleDotIcon' : 
                             'islands#orangeCircleDotIcon',
                             iconImageSize: [16, 16],
                         }}
