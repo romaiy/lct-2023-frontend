@@ -44,11 +44,13 @@ const FileExport = (props: {id: string}) => {
                                 position: 'absolute', 
                                 top: 60, left: 70, 
                                 right: 0,
-                                padding: '8px 16px'
+                                padding: '8px 16px',
+                                zIndex: 1000
                             }}
                         >
                             <Text size="lg" lh={'24px'} color="gray.9">
-                                Перед экспортом сохраните файл
+                                Перед экспортом сохраните файл.
+                                Название файла должно быть на английском языке.
                             </Text>
                         </Paper>
                         )}
