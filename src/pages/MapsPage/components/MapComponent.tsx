@@ -66,9 +66,9 @@ const MapComponent = () => {
                             })}`,
                         }}
                         options={{
-                            preset: 
-                            item.causes.length === 0 ? 'islands#blackCircleDotIcon' : 
-                            'islands#orangeCircleDotIcon',
+                            preset:
+                            item.causes ? item.causes.length === 0 ? 'islands#blackCircleDotIcon' :
+                            'islands#orangeCircleDotIcon' : 'islands#blackCircleDotIcon',
                             iconImageSize: [16, 16],
                         }}
                     />

@@ -38,6 +38,21 @@ const Example = (props:
                 header: 'Характеристика',
                 size: 100,
                 Cell: ({ cell }) => (
+                    <>
+                    {!cell.getValue<string[]>() ? 
+                        <Box
+                            sx={(theme) => ({
+                                background: theme.colors.gray[9],
+                                borderRadius: '16px',
+                                color: '#fff',
+                                padding: '4px 12px',
+                                display: 'inline-block',
+                                cursor: 'pointer'
+                            })}
+                        >
+                            Плановая работа
+                        </Box>
+                    :
                     <Tooltip label={!cell.getValue<string[]>().indexOf('МосГаз') ? 
                         cell.getValue<string[]>().indexOf('Авария') ? 'МосГаз, Аварийность' : 'МосГаз'
                         : !cell.getValue<string[]>().indexOf('Авария') ? 'Аварийность' : undefined}
@@ -56,7 +71,8 @@ const Example = (props:
                         >
                             {cell.getValue<string[]>().length === 0 ? 'Плановая работа' : 'Срочная работа'}
                         </Box>
-                    </Tooltip>
+                    </Tooltip>}
+                    </>
                 ),
             },
             {
